@@ -28,6 +28,8 @@ flutter pub add flutter_modal_dialog
 
 ## Usage
 
+### ModalDialog.simple
+
 `ModalDialog.simple` is a dialog that shows a single message, it should be short, like "Data was sent" or "Finished uploading", it has a single button that will dismiss the dialog.
 
 ```dart
@@ -37,8 +39,13 @@ ModalDialog.simple(
   buttonText: "Alright!",
 );
 ```
+#### Preview
 
-TODO: Add image here
+<p align="center">
+  <img src="https://github.com/nickolasdeluca/flutter_modal_dialog/assets/17858166/929746ee-2034-4db7-b254-9fb205e3e146" width="200" height="395">
+</p>
+
+### ModalDialog.detailed
 
 `ModalDialog.detailed` is the reason I created this package, to have a dialog that would show a title, a message and a hidden message that the user could tap and provide detailed information on why an error was thrown.
 
@@ -52,10 +59,23 @@ ModalDialog.detailed(
   buttonText: "Alright!",
 );
 ```
+### Preview
 
-TODO: Add image here
+Details hidden:
 
-`ModalDialog.waiting` is a dialog without buttons and not dismissable as well. It was created to be used while the application processes something in the background and after that code gets executed, the dialog should be dismissed by the application as well.
+<p align="center">
+  <img src="https://github.com/nickolasdeluca/flutter_modal_dialog/assets/17858166/ce164553-7f8a-433a-b435-2e69e26bdd87" width="200" height="395">
+</p>
+
+Details shown:
+
+<p align="center">
+  <img src="https://github.com/nickolasdeluca/flutter_modal_dialog/assets/17858166/fca7af04-92b8-49a5-a6fc-9e61e5e1afc5" width="200" height="395">
+</p>
+
+### ModalDialog.waiting
+
+`ModalDialog.waiting` is a dialog without buttons. It was created to be used while the application processes something in the background and after that code gets executed, the dialog should be dismissed by the application as well.
 
 ```dart
 ModalDialog.waiting(
@@ -69,7 +89,11 @@ Future.delayed(const Duration(seconds: 5), () {
 });
 ```
 
-TODO: Add image here
+### Preview
+
+<p align="center">
+  <img src="https://github.com/nickolasdeluca/flutter_modal_dialog/assets/17858166/8ff0c2fc-db34-49c2-af2b-ff2d0e3f0aea" width="200" height="395">
+</p>
 
 ## Additional information
 
