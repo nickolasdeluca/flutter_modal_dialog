@@ -39,6 +39,7 @@ ModalDialog.simple(
   buttonText: "Alright!",
 );
 ```
+
 #### Preview
 
 <p align="center">
@@ -59,6 +60,7 @@ ModalDialog.detailed(
   buttonText: "Alright!",
 );
 ```
+
 ### Preview
 
 Details hidden:
@@ -93,6 +95,25 @@ Future.delayed(const Duration(seconds: 5), () {
 
 <p align="center">
   <img src="https://github.com/nickolasdeluca/flutter_modal_dialog/assets/17858166/8ff0c2fc-db34-49c2-af2b-ff2d0e3f0aea" width="200" height="395">
+</p>
+
+## ModalDialog.confirmation
+
+`ModalDialog.confirmation` will show a dialog with two buttons with Yes and No options. You can change the text for the buttons using the properties `yesButtonText` and `noButtonText`. I'll think of a better way to do this in the next revisions.
+
+```dart
+ModalDialog.confirmation(
+  context: context,
+  title: "Please confirm",
+  message: "It's a simple Yes/No question",
+  yesButtonText: "true",
+);
+```
+
+### Preview
+
+<p align="center">
+  <img src="https://github.com/nickolasdeluca/flutter_modal_dialog/assets/17858166/388f3a56-a8d4-467f-b909-ef57b4b860c7" width="200" height="395">
 </p>
 
 ## Additional information

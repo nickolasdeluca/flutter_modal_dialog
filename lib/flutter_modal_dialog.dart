@@ -320,4 +320,130 @@ class ModalDialog {
       },
     );
   }
+
+  static confirmation({
+    required BuildContext context,
+    required String title,
+    required String message,
+    String? yesButtonText,
+    String? noButtonText,
+  }) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return _BaseAlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Divider(
+                color: Colors.transparent,
+                height: 18,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Color(0xFF303F9F),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              const Divider(
+                color: Color(0xFFDBDDE0),
+                height: 36,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Color(0xFF52575C),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              const Divider(
+                color: Color(0xFFDBDDE0),
+                height: 36,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.pop(context, true),
+                        style: const ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            Color(0xFF28A745),
+                          ),
+                          minimumSize: MaterialStatePropertyAll(
+                            Size(double.infinity, 35),
+                          ),
+                          shape:
+                              MaterialStatePropertyAll<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(6),
+                              ),
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          yesButtonText ?? "Yes",
+                          style: const TextStyle(
+                            color: Color(0xFFEFF4FF),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const VerticalDivider(
+                      color: Colors.transparent,
+                      width: 15,
+                    ),
+                    Flexible(
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        style: const ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            Color(0xFFDC3545),
+                          ),
+                          minimumSize: MaterialStatePropertyAll(
+                            Size(double.infinity, 35),
+                          ),
+                          shape:
+                              MaterialStatePropertyAll<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(6),
+                              ),
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          noButtonText ?? "No",
+                          style: const TextStyle(
+                            color: Color(0xFFEFF4FF),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
