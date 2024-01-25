@@ -20,8 +20,10 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 ModalDialog.simple(
                   context: context,
-                  title: "This is a short message",
-                  buttonText: "Alright!",
+                  title: const ModalTitle(
+                    text: "This is a short message",
+                  ),
+                  button: const ModalButton(text: "Alright!"),
                 );
               },
               buttonText: "Simple dialog",
@@ -30,11 +32,16 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 ModalDialog.detailed(
                   context: context,
-                  title: "This is a short message",
+                  title: const ModalTitle(text: "This is a short message"),
                   message: "This is larger message that explains the title",
-                  detail: "This is a detailed message that contains more "
-                      "information about the title and message",
-                  buttonText: "Alright!",
+                  detail: const ModalDetail(
+                    visibleText: "Detailed message",
+                    hiddenText: "This is a detailed message that contains more "
+                        "information about the title and message",
+                  ),
+                  button: const ModalButton(
+                    text: "Alright!",
+                  ),
                 );
               },
               buttonText: "Detailed message dialog",
@@ -43,8 +50,8 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 ModalDialog.waiting(
                   context: context,
-                  message: "Processing",
-                  detail: "Please wait while we process your request",
+                  title: const ModalTitle(text: "Processing"),
+                  message: "Please wait while we process your request",
                 );
 
                 Future.delayed(const Duration(seconds: 5), () {
@@ -54,15 +61,16 @@ class _HomeState extends State<Home> {
               buttonText: "Waiting dialog",
             ),
             SimpleButton(
-                onPressed: () {
-                  ModalDialog.confirmation(
-                    context: context,
-                    title: "Please confirm",
-                    message: "It's a simple Yes/No question",
-                    yesButtonText: "true",
-                  );
-                },
-                buttonText: "Confirmation dialog"),
+              onPressed: () {
+                ModalDialog.confirmation(
+                  context: context,
+                  title: const ModalTitle(text: "Please confirm"),
+                  message: "It's a simple Yes/No question",
+                  confirmButton: const ModalButton(text: "true"),
+                );
+              },
+              buttonText: "Confirmation dialog",
+            ),
           ],
         ),
       ),

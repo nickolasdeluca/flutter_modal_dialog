@@ -35,8 +35,10 @@ flutter pub add flutter_modal_dialog
 ```dart
 ModalDialog.simple(
   context: context,
-  title: "This is a short message",
-  buttonText: "Alright!",
+  title: const ModalTitle(
+    text: "This is a short message",
+  ),
+  button: const ModalButton(text: "Alright!"),
 );
 ```
 
@@ -53,11 +55,14 @@ ModalDialog.simple(
 ```dart
 ModalDialog.detailed(
   context: context,
-  title: "This is a short message",
+  title: const ModalTitle(text: "This is a short message"),
   message: "This is larger message that explains the title",
-  detail: "This is a detailed message that contains more "
-      "information about the title and message",
-  buttonText: "Alright!",
+  detail: const ModalDetail(
+    visibleText: "Detailed message",
+    hiddenText: "This is a detailed message that contains more "
+        "information about the title and message",
+  ),
+  button: const ModalButton(text: "Alright!"),
 );
 ```
 
@@ -82,8 +87,8 @@ Details shown:
 ```dart
 ModalDialog.waiting(
   context: context,
-  message: "Processing",
-  detail: "Please wait while we process your request",
+  title: const ModalTitle(text: "Processing"),
+  message: "Please wait while we process your request",
 );
 
 Future.delayed(const Duration(seconds: 5), () {
@@ -99,14 +104,14 @@ Future.delayed(const Duration(seconds: 5), () {
 
 ## ModalDialog.confirmation
 
-`ModalDialog.confirmation` will show a dialog with two buttons with Yes and No options. You can change the text for the buttons using the properties `yesButtonText` and `noButtonText`. I'll think of a better way to do this in the next revisions.
+`ModalDialog.confirmation` will show a dialog with two buttons with Yes and No options.
 
 ```dart
 ModalDialog.confirmation(
   context: context,
-  title: "Please confirm",
+  title: const ModalTitle(text: "Please confirm"),
   message: "It's a simple Yes/No question",
-  yesButtonText: "true",
+  confirmButton: const ModalButton(text: "true"),
 );
 ```
 
@@ -115,6 +120,10 @@ ModalDialog.confirmation(
 <p align="center">
   <img src="https://github.com/nickolasdeluca/flutter_modal_dialog/assets/17858166/388f3a56-a8d4-467f-b909-ef57b4b860c7" width="200" height="395">
 </p>
+
+## Customization
+
+For now you can customize the colors of titles and buttons. I'll provide more customization in the near future but I still aim to create a standardized dialog that you can use effortlessly.
 
 ## Additional information
 

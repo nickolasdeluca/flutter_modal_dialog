@@ -1,6 +1,6 @@
 name: flutter_modal_dialog
 description: "A package for flutter to show modal dialogs that require little customization."
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/nickolasdeluca/modal_dialog
 
 environment:
