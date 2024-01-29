@@ -25,12 +25,10 @@ class _BaseAlertDialog extends StatelessWidget {
 
 class _HiddenContent extends StatefulWidget {
   const _HiddenContent({
-    required this.visibleText,
-    required this.hiddenText,
+    required this.content,
   });
 
-  final String visibleText;
-  final String hiddenText;
+  final ModalDetail? content;
 
   @override
   State<_HiddenContent> createState() => _HiddenContentState();
@@ -41,6 +39,10 @@ class _HiddenContentState extends State<_HiddenContent> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.content == null) {
+      return Container(height: 0);
+    }
+
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -56,12 +58,12 @@ class _HiddenContentState extends State<_HiddenContent> {
           children: <Widget>[
             Visibility(
               visible: !isExpanded,
-              child: Text(widget.visibleText),
+              child: Text(widget.content!.visibleText),
             ),
             Visibility(
               visible: isExpanded,
               child: Text(
-                widget.hiddenText,
+                widget.content!.hiddenText,
               ),
             ),
           ],
@@ -296,10 +298,7 @@ class ModalDialog {
                     ),
                     Align(
                       alignment: Alignment.center,
-                      child: _HiddenContent(
-                        visibleText: detail!.visibleText,
-                        hiddenText: detail.hiddenText,
-                      ),
+                      child: _HiddenContent(content: detail),
                     ),
                   ],
                 ),
