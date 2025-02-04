@@ -15,3 +15,7 @@
 ## 0.0.4
 
 * Fixed an issue with the `ModalDialog.detailed` where it would fail to build if the `detail` was null
+
+## 0.0.5
+
+* Code updates and setting the maximum width of the dialog to 400 to use the package with Flutter Web.

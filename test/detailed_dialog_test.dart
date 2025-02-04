@@ -28,28 +28,32 @@ void main() {
       final titleFinder = find.text("This is a short message");
       final messageFinder =
           find.text("This is larger message that explains the title");
-      final detailFinder = find.text(
-          "This is a detailed message that contains more information about the title and message");
+      final visibleTextFinder = find.text("Detailed message").hitTestable();
+      final hiddenTextFinder = find
+          .text(
+              "This is a detailed message that contains more information about the title and message")
+          .hitTestable();
       final buttonTextFinder = find.text("Alright!");
 
       expect(titleFinder, findsOneWidget);
       expect(messageFinder, findsOneWidget);
-      expect(detailFinder, findsNothing);
+      expect(visibleTextFinder, findsOneWidget);
+      expect(hiddenTextFinder, findsNothing);
       expect(buttonTextFinder, findsOneWidget);
 
-      final hiddenMessageContainer = find.byType(AnimatedContainer);
+      final hiddenMessageContainer = find.byType(AnimatedCrossFade);
 
       await tester.tap(hiddenMessageContainer);
 
-      await tester.pump();
+      await tester.pumpAndSettle(const Duration(milliseconds: 200));
 
-      expect(detailFinder, findsOneWidget);
+      expect(hiddenTextFinder, findsOneWidget);
 
       await tester.tap(hiddenMessageContainer);
 
-      await tester.pump();
+      await tester.pumpAndSettle(const Duration(milliseconds: 200));
 
-      expect(detailFinder, findsNothing);
+      expect(hiddenTextFinder, findsNothing);
     },
   );
 }

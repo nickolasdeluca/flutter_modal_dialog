@@ -91,7 +91,7 @@ class SimpleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: const ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(Color(0xFF303F9F)),
+        backgroundColor: WidgetStatePropertyAll(Color(0xFF303F9F)),
       ),
       onPressed: onPressed,
       child: Text(

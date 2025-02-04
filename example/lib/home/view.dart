@@ -55,7 +55,9 @@ class _HomeState extends State<Home> {
                 );
 
                 Future.delayed(const Duration(seconds: 5), () {
-                  Navigator.pop(context);
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                  }
                 });
               },
               buttonText: "Waiting dialog",
@@ -92,7 +94,7 @@ class SimpleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: const ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(Color(0xFF303F9F)),
+        backgroundColor: WidgetStatePropertyAll(Color(0xFF303F9F)),
       ),
       onPressed: onPressed,
       child: Text(

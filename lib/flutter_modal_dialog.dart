@@ -11,14 +11,20 @@ class _BaseAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    return Dialog(
       backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(6),
         ),
       ),
-      content: content,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 400),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: content,
+        ),
+      ),
     );
   }
 }
@@ -37,6 +43,10 @@ class _HiddenContent extends StatefulWidget {
 class _HiddenContentState extends State<_HiddenContent> {
   bool isExpanded = false;
 
+  CrossFadeState _crossFadeState() {
+    return isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.content == null) {
@@ -49,25 +59,17 @@ class _HiddenContentState extends State<_HiddenContent> {
           isExpanded = !isExpanded;
         });
       },
-      child: AnimatedContainer(
-        width: double.maxFinite,
-        duration: const Duration(seconds: 5),
-        curve: Curves.bounceOut,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Visibility(
-              visible: !isExpanded,
-              child: Text(widget.content!.visibleText),
-            ),
-            Visibility(
-              visible: isExpanded,
-              child: Text(
-                widget.content!.hiddenText,
-              ),
-            ),
-          ],
+      child: AnimatedCrossFade(
+        firstChild: Text(
+          widget.content!.visibleText,
+          textAlign: TextAlign.center,
         ),
+        secondChild: Text(
+          widget.content!.hiddenText,
+          textAlign: TextAlign.center,
+        ),
+        crossFadeState: _crossFadeState(),
+        duration: const Duration(milliseconds: 100),
       ),
     );
   }
@@ -127,12 +129,12 @@ class ModalDialog {
   /// Shows a simple dialog with a title and a button.
   /// If the color of the button is not defined, it will be `#FCE444` by
   /// default.
-  static simple({
+  static Future<void> simple({
     required BuildContext context,
     required ModalTitle title,
     required ModalButton button,
   }) {
-    return showDialog(
+    return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
@@ -166,14 +168,13 @@ class ModalDialog {
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
+                    backgroundColor: WidgetStatePropertyAll(
                       button.color ?? const Color(0xFFFCE444),
                     ),
-                    minimumSize: const MaterialStatePropertyAll(
+                    minimumSize: const WidgetStatePropertyAll(
                       Size(double.infinity, 35),
                     ),
-                    shape:
-                        const MaterialStatePropertyAll<RoundedRectangleBorder>(
+                    shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(6),
@@ -207,14 +208,14 @@ class ModalDialog {
   /// the detail.
   /// You can define the text that will be shown when the detail is hidden and
   /// the text that will be shown when the detail is expanded.
-  static detailed({
+  static Future<void> detailed({
     required BuildContext context,
     required ModalTitle title,
     required String message,
     ModalDetail? detail,
     required ModalButton button,
   }) {
-    return showDialog(
+    return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
@@ -264,14 +265,13 @@ class ModalDialog {
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
+                    backgroundColor: WidgetStatePropertyAll(
                       button.color ?? const Color(0xFFFCE444),
                     ),
-                    minimumSize: const MaterialStatePropertyAll(
+                    minimumSize: const WidgetStatePropertyAll(
                       Size(double.infinity, 35),
                     ),
-                    shape:
-                        const MaterialStatePropertyAll<RoundedRectangleBorder>(
+                    shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(6),
@@ -315,12 +315,12 @@ class ModalDialog {
   /// buttons.
   /// You should pair this dialog with a `Future.delayed()` and a
   /// `Navigator.pop()` to dismiss it.
-  static waiting({
+  static Future<void> waiting({
     required BuildContext context,
     required ModalTitle title,
     String? message,
   }) {
-    return showDialog(
+    return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
@@ -389,14 +389,14 @@ class ModalDialog {
   /// Shows a dialog with a title, a message and two buttons.
   /// The buttons are labeled "Yes" and "No" by default, but you can change
   /// them by passing the `yesButtonText` and `noButtonText` parameters.
-  static confirmation({
+  static Future<bool?> confirmation({
     required BuildContext context,
     required ModalTitle title,
     required String message,
     ModalButton? confirmButton,
     ModalButton? cancelButton,
   }) {
-    return showDialog(
+    return showDialog<bool>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
@@ -449,13 +449,13 @@ class ModalDialog {
                       child: ElevatedButton(
                         onPressed: () => Navigator.pop(context, true),
                         style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
+                          backgroundColor: WidgetStatePropertyAll(
                             confirmButton?.color ?? const Color(0xFF28A745),
                           ),
-                          minimumSize: const MaterialStatePropertyAll(
+                          minimumSize: const WidgetStatePropertyAll(
                             Size(double.infinity, 35),
                           ),
-                          shape: const MaterialStatePropertyAll<
+                          shape: const WidgetStatePropertyAll<
                               RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
@@ -482,13 +482,13 @@ class ModalDialog {
                       child: ElevatedButton(
                         onPressed: () => Navigator.pop(context, false),
                         style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
+                          backgroundColor: WidgetStatePropertyAll(
                             cancelButton?.color ?? const Color(0xFFDC3545),
                           ),
-                          minimumSize: const MaterialStatePropertyAll(
+                          minimumSize: const WidgetStatePropertyAll(
                             Size(double.infinity, 35),
                           ),
-                          shape: const MaterialStatePropertyAll<
+                          shape: const WidgetStatePropertyAll<
                               RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
